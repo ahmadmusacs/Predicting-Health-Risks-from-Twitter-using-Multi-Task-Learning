@@ -31,5 +31,5 @@ After this step is completed, run docker using this command.
 
 The output of the program will show you the accuracy of the models on the prediction tasks. 
 Below, it is a sample sanp from the output. 
-![Image of sample run] (https://github.com/ahmadmusacs/Predicting-Health-Risks-from-Twitter-using-Multi-Task-Learning/images/outputSnap.jpeg)
+![Image of sample run] (https://github.com/ahmadmusacs/Predicting-Health-Risks-from-Twitter-using-Multi-Task-Learning/blob/master/images/outputSnap.JPG)
 
