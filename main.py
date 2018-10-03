@@ -106,7 +106,7 @@ def TestingSetUsingSVM(OutputLabels, modelName, Vocabulary, ErrorAnalysisOutputF
 			weights = loaded_model.coef_[0]
 			#print(weights)
 			outputAnalysis.write('Predicted Label : {0} , Correct Label : {1} \n'.format(predictedLabel[0] , Labels[x]))
-			highest_weighted_idx = sorted(range(len(weights)), key=lambda i: weights[i])[-20:]
+			highest_weighted_idx = sorted(range(len(weights)), key=lambda i: weights[i])[-30:]
 			for val in highest_weighted_idx:
 				if( val >= len(vocabulary)):
 					outputAnalysis.write('{0} {1}\n'.format(str(val-len(vocabulary)+1) , str(weights[val])))
