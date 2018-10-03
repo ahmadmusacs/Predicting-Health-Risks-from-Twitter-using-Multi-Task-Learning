@@ -30,6 +30,7 @@ After this step is completed, run docker using this command.
 ### **Discription of the output**
 
 The output of the program will show you the accuracy of the models on the prediction tasks. 
-Below, it is a sample sanp from the output. 
-![Image of sample run] (https://drive.google.com/file/d/1ruidt6fPlHCQBv-g5zp7L30MNYmhM91k/view?usp=sharing)
+Below, it is a sample sanp from the output.
+
+![Image of sample run](https://drive.google.com/file/d/1ruidt6fPlHCQBv-g5zp7L30MNYmhM91k/view)
 
