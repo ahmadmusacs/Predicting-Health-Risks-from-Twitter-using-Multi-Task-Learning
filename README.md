@@ -1,2 +1,3 @@
-# Predicting-Health-Risks-from-Twitter-using-Multi-Task-Learning
-# Predicting-Health-Risks-from-Twitter-using-Multi-Task-Learning
+# Predicting Health Risks from Twitter using Multi Task Learning
+
+This is a replication of a work from this [paper](https://arxiv.org/pdf/1409.2195). I implemented the baseline tasks for predicting health risks from tweet data. SVM from Scikit learn library has been used for classification tasks. In order to run the project using Python, user has to install scikit learn and nltk. But using the Dockerfile is more convenient as it takes care of the dependencies. 
