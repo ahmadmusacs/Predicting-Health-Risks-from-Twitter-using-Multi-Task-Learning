@@ -16,15 +16,15 @@ Host:
 
 ### **Installation**
 
-At first, use git to clone the project. `git clone https://github.com/ahmadmusacs/Predicting-Health-Risks-from-Twitter-using-Multi-Task-Learning.git`. 
+At first, use git to clone the project. `git clone https://github.com/ahmadmusacs/Predicting-Health-Risks-from-Twitter-using-Multi-Task-Learning.git`. Then, `cd` into the project. 
 
 Now, run this docker command to build docker image. 
 ```
-	>> docker build -t twitter4food .
+>> docker build -t twitter4food .
 ``` 
 After this step is completed, run docker using this command. 
 ```
-	>> docker run --name twitter4food
+>> docker run twitter4food
 ```
 
 ### **Description of the output**
@@ -32,4 +32,4 @@ After this step is completed, run docker using this command.
 The output of the program will show you the accuracy of the models on the prediction tasks. 
 Below, it is a sample sanp from the output.
 
-![Image of sample run 2](https://github.com/ahmadmusacs/Predicting-Health-Risks-from-Twitter-using-Multi-Task-Learning/blob/master/images/outputSnap.JPG)
+![Image of sample run 2](https://github.com/ahmadmusacs/Predicting-Health-Risks-from-Twitter-using-Multi-Task-Learning/blob/master/images/final_result.JPG)
