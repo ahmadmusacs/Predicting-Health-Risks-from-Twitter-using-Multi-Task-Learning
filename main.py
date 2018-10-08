@@ -3,8 +3,6 @@ from __future__ import print_function
 from itertools import islice
 import io
 import nltk
-nltk.download('punkt')
-from nltk.tokenize import word_tokenize
 import statistics
 from sklearn import svm
 import re
@@ -106,13 +104,21 @@ def TestingSetUsingSVM(OutputLabels, modelName, Vocabulary, ErrorAnalysisOutputF
 			weights = loaded_model.coef_[0]
 			#print(weights)
 			outputAnalysis.write('Predicted Label : {0} , Correct Label : {1} \n'.format(predictedLabel[0] , Labels[x]))
-			highest_weighted_idx = sorted(range(len(weights)), key=lambda i: weights[i])[-30:]
+			highest_weighted_idx = sorted(range(len(weights)), key=lambda i: weights[i])[-20:]
 			for val in highest_weighted_idx:
 				if( val >= len(vocabulary)):
 					outputAnalysis.write('{0} {1}\n'.format(str(val-len(vocabulary)+1) , str(weights[val])))
 				else:
 					outputAnalysis.write('{0} {1}\n'.format(str(vocabulary[val]) , str(weights[val])))
-
+			outputAnalysis.write("................................................\n")
+			highest_weighted_idx = sorted(range(len(weights)), key=lambda i: weights[i])[:20]
+			for val in highest_weighted_idx:
+				if( val >= len(vocabulary)):
+					outputAnalysis.write('{0} {1}\n'.format(str(val-len(vocabulary)+1) , str(weights[val])))
+				else:
+					outputAnalysis.write('{0} {1}\n'.format(str(vocabulary[val]) , str(weights[val])))
+			outputAnalysis.write("................................................\n")
+			outputAnalysis.write("................................................\n\n")
 		print('Number of correct predictions for this set : {0}'.format(correctPrediction))
 		return correctPrediction
 
@@ -127,8 +133,8 @@ def main():
 	vocab = BuildVocab("data/AllWords.txt")
 	# BuildingTrainingSetUsingSVM("data/obesityBin.txt", featureMat, "allmodelobesity")
 	# BuildingTrainingSetUsingSVM("data/DiabetesBin.txt", featureMat, "allmodeldiabetes")
-	scoreForAllwords1 = TestingSetUsingSVM("data/obesityBin.txt","allmodelobesity", vocab, "result/ErrorForObesityUsingAllWords.txt", featureMat)
-	scoreForAllwords2 = TestingSetUsingSVM("data/DiabetesBin.txt", "allmodeldiabetes", vocab, "result/ErrorForDiabetesUsingAllWords.txt",  featureMat)
+	scoreForAllwords1 = TestingSetUsingSVM("data/obesityBin.txt","allmodelobesity", vocab, "result/TopFeaturesObesityUsingAllWords.txt", featureMat)
+	scoreForAllwords2 = TestingSetUsingSVM("data/DiabetesBin.txt", "allmodeldiabetes", vocab, "result/TopFeaturesDiabetesUsingAllWords.txt",  featureMat)
 	print("Using All Words as features , following result occurs: ")
 	print('Obesity rate {0} , Diabetes Rate {1} '.format(scoreForAllwords1*100/51, scoreForAllwords2*100/51))
 	print("-------------------------------------------------------------------------------")
@@ -137,8 +143,8 @@ def main():
 	vocab = BuildVocab("data/AllWords.txt")
 	# BuildingTrainingSetUsingSVM("data/obesityBin.txt", featureMat, "allmodelLDAobesity")
 	# BuildingTrainingSetUsingSVM("data/DiabetesBin.txt", featureMat, "allmodelLDAdiabetes")
-	scoreForAllwordsAndLda1 = TestingSetUsingSVM("data/obesityBin.txt","allmodelLDAobesity", vocab, "result/ErrorForObesityUsingAllWordsandLDA.txt", featureMat)
-	scoreForAllwordsAndLda2 = TestingSetUsingSVM("data/DiabetesBin.txt", "allmodelLDAdiabetes", vocab, "result/ErrorForDiabetesUsingAllWordsandLDA.txt",  featureMat)
+	scoreForAllwordsAndLda1 = TestingSetUsingSVM("data/obesityBin.txt","allmodelLDAobesity", vocab, "result/TopFeaturesObesityUsingAllWordsandLDA.txt", featureMat)
+	scoreForAllwordsAndLda2 = TestingSetUsingSVM("data/DiabetesBin.txt", "allmodelLDAdiabetes", vocab, "result/TopFeaturesDiabetesUsingAllWordsandLDA.txt",  featureMat)
 	print("Using All Words + LDA as features , following result occurs: ")
 	print('Obesity rate {0} , Diabetes Rate {1} '.format(scoreForAllwordsAndLda1*100/51, scoreForAllwordsAndLda2*100/51))
 	print("-------------------------------------------------------------------------------")
@@ -147,8 +153,8 @@ def main():
 	vocab = BuildVocab("data/FoodWords.txt")
 	# BuildingTrainingSetUsingSVM("data/obesityBin.txt", featureMat, "foodmodelobesity")
 	# BuildingTrainingSetUsingSVM("data/DiabetesBin.txt", featureMat, "foodmodeldiabetes")
-	scoreForFoodwords1 = TestingSetUsingSVM("data/obesityBin.txt","foodmodelobesity", vocab, "result/ErrorForObesityUsingFoodWords.txt", featureMat)
-	scoreForFoodwords2 = TestingSetUsingSVM("data/DiabetesBin.txt", "foodmodeldiabetes", vocab, "result/ErrorForDiabetesUsingFoodWords.txt",  featureMat)
+	scoreForFoodwords1 = TestingSetUsingSVM("data/obesityBin.txt","foodmodelobesity", vocab, "result/TopFeaturesObesityUsingFoodWords.txt", featureMat)
+	scoreForFoodwords2 = TestingSetUsingSVM("data/DiabetesBin.txt", "foodmodeldiabetes", vocab, "result/TopFeaturesDiabetesUsingFoodWords.txt",  featureMat)
 	print("Using Food Words as features , following result occurs: ")
 	print('Obesity rate {0} , Diabetes Rate {1} '.format(scoreForFoodwords1*100/51, scoreForFoodwords2*100/51))
 	print("-------------------------------------------------------------------------------")
@@ -158,8 +164,8 @@ def main():
 	vocab = BuildVocab("data/FoodWords.txt")
 	# # # # BuildingTrainingSetUsingSVM("data/obesityBin.txt", featureMat, "foodmodelLDAobesity")
 	# # # # BuildingTrainingSetUsingSVM("data/DiabetesBin.txt", featureMat, "foodmodelLDAdiabetes")
-	scoreForFoodwordsandLda1 = TestingSetUsingSVM("data/obesityBin.txt","foodmodelLDAobesity", vocab, "result/ErrorForObesityUsingFoodWordsandLDA.txt", featureMat)
-	scoreForFoodwordsandLda2 = TestingSetUsingSVM("data/DiabetesBin.txt", "foodmodelLDAdiabetes", vocab, "result/ErrorForDiabetesUsingFoodWordsandLDA.txt",  featureMat)
+	scoreForFoodwordsandLda1 = TestingSetUsingSVM("data/obesityBin.txt","foodmodelLDAobesity", vocab, "result/TopFeaturesObesityUsingFoodWordsandLDA.txt", featureMat)
+	scoreForFoodwordsandLda2 = TestingSetUsingSVM("data/DiabetesBin.txt", "foodmodelLDAdiabetes", vocab, "result/TopFeaturesDiabetesUsingFoodWordsandLDA.txt",  featureMat)
 	print("Using Food Words+LDA as features , following result occurs: ")
 	print('Obesity rate {0} , Diabetes Rate {1} '.format(scoreForFoodwordsandLda1*100/51, scoreForFoodwordsandLda2*100/51))
 	print("-------------------------------------------------------------------------------")
@@ -169,8 +175,8 @@ def main():
 	vocab = BuildVocab("data/HashtagWords.txt")
 	# # BuildingTrainingSetUsingSVM("data/obesityBin.txt", featureMat, "hashtagmodelobesity")
 	# # BuildingTrainingSetUsingSVM("data/DiabetesBin.txt", featureMat, "hashtagmodeldiabetes")
-	scoreForHashtagwords1 = TestingSetUsingSVM("data/obesityBin.txt","hashtagmodelobesity", vocab, "result/ErrorForObesityUsingHashtagWords.txt", featureMat)
-	scoreForHashtagwords2 = TestingSetUsingSVM("data/DiabetesBin.txt", "hashtagmodeldiabetes", vocab, "result/ErrorForDiabetesUsingHashtagWords.txt",  featureMat)
+	scoreForHashtagwords1 = TestingSetUsingSVM("data/obesityBin.txt","hashtagmodelobesity", vocab, "result/TopFeaturesObesityUsingHashtagWords.txt", featureMat)
+	scoreForHashtagwords2 = TestingSetUsingSVM("data/DiabetesBin.txt", "hashtagmodeldiabetes", vocab, "result/TopFeaturesDiabetesUsingHashtagWords.txt",  featureMat)
 	print("Using Hashtag Words as features , following result occurs: ")
 	print('Obesity rate {0} , Diabetes Rate {1} '.format(scoreForHashtagwords1*100/51, scoreForHashtagwords2*100/51))
 	print("-------------------------------------------------------------------------------")
@@ -180,8 +186,8 @@ def main():
 	# vocab = BuildVocab("data/HashtagWords.txt")
 	# # BuildingTrainingSetUsingSVM("data/obesityBin.txt", featureMat, "hashtagmodelLDAobesity")
 	# # BuildingTrainingSetUsingSVM("data/DiabetesBin.txt", featureMat, "hashtagmodelLDAdiabetes")
-	scoreForHashtagwordsandLda1 = TestingSetUsingSVM("data/obesityBin.txt","hashtagmodelLDAobesity", vocab, "result/ErrorForObesityUsingHashtagWordsandLDA.txt", featureMat)
-	scoreForHashtagwordsandLda2 = TestingSetUsingSVM("data/DiabetesBin.txt", "hashtagmodelLDAdiabetes", vocab, "result/ErrorForDiabetesUsingHashtagWordsandLDA.txt",  featureMat)
+	scoreForHashtagwordsandLda1 = TestingSetUsingSVM("data/obesityBin.txt","hashtagmodelLDAobesity", vocab, "result/TopFeaturesObesityUsingHashtagWordsandLDA.txt", featureMat)
+	scoreForHashtagwordsandLda2 = TestingSetUsingSVM("data/DiabetesBin.txt", "hashtagmodelLDAdiabetes", vocab, "result/TopFeaturesDiabetesUsingHashtagWordsandLDA.txt",  featureMat)
 	print("Using Hashtag Words+LDA as features , following result occurs: ")
 	print('Obesity rate {0} , Diabetes Rate {1} '.format(scoreForHashtagwordsandLda1*100/51, scoreForHashtagwordsandLda2*100/51))
 	print("-------------------------------------------------------------------------------")
@@ -191,8 +197,8 @@ def main():
 	FoodandHashtagVocab = vocab + BuildVocab("data/FoodWords.txt")
 	# # BuildingTrainingSetUsingSVM("data/obesityBin.txt", featureMat, "foodhashtagmodelobesity")
 	# # BuildingTrainingSetUsingSVM("data/DiabetesBin.txt", featureMat, "foodhashtagmodeldiabetes")
-	scoreForFoodHashtagwords1 = TestingSetUsingSVM("data/obesityBin.txt","foodhashtagmodelobesity", FoodandHashtagVocab, "result/ErrorForObesityUsingFoodHashtagWords.txt", featureMat)
-	scoreForFoodHashtagwords2 = TestingSetUsingSVM("data/DiabetesBin.txt", "foodhashtagmodeldiabetes", FoodandHashtagVocab, "result/ErrorForDiabetesUsingFoodHashtagWords.txt",  featureMat)
+	scoreForFoodHashtagwords1 = TestingSetUsingSVM("data/obesityBin.txt","foodhashtagmodelobesity", FoodandHashtagVocab, "result/TopFeaturesObesityUsingFoodHashtagWords.txt", featureMat)
+	scoreForFoodHashtagwords2 = TestingSetUsingSVM("data/DiabetesBin.txt", "foodhashtagmodeldiabetes", FoodandHashtagVocab, "result/TopFeaturesDiabetesUsingFoodHashtagWords.txt",  featureMat)
 	print("Using Food + Hashtag Words as features , following result occurs: ")
 	print('Obesity rate {0} , Diabetes Rate {1} '.format(scoreForFoodHashtagwords1*100/51, scoreForFoodHashtagwords2*100/51))
 	print("-------------------------------------------------------------------------------")
@@ -202,8 +208,8 @@ def main():
 	FoodandHashtagVocab = vocab + BuildVocab("data/FoodWords.txt")
 	# # BuildingTrainingSetUsingSVM("data/obesityBin.txt", featureMat, "foodhashtagmodelLDAobesity")
 	# # BuildingTrainingSetUsingSVM("data/DiabetesBin.txt", featureMat, "foodhashtagmodelLDAdiabetes")
-	scoreForFoodHashtagwordsandLda1 = TestingSetUsingSVM("data/obesityBin.txt","foodhashtagmodelLDAobesity", FoodandHashtagVocab, "result/ErrorForObesityUsingFoodHashtagWordsandLDA.txt", featureMat)
-	scoreForFoodHashtagwordsandLda2 = TestingSetUsingSVM("data/DiabetesBin.txt", "foodhashtagmodelLDAdiabetes", FoodandHashtagVocab, "result/ErrorForDiabetesUsingFoodHashtagWordsandLDA.txt",  featureMat)
+	scoreForFoodHashtagwordsandLda1 = TestingSetUsingSVM("data/obesityBin.txt","foodhashtagmodelLDAobesity", FoodandHashtagVocab, "result/TopFeaturesObesityUsingFoodHashtagWordsandLDA.txt", featureMat)
+	scoreForFoodHashtagwordsandLda2 = TestingSetUsingSVM("data/DiabetesBin.txt", "foodhashtagmodelLDAdiabetes", FoodandHashtagVocab, "result/TopFeaturesDiabetesUsingFoodHashtagWordsandLDA.txt",  featureMat)
 	print("Using Food + Hashtag Words+ LDA as features , following result occurs: ")
 	print('Obesity rate {0} , Diabetes Rate {1} '.format(scoreForFoodHashtagwordsandLda1*100/51, scoreForFoodHashtagwordsandLda2*100/51))
 	print("-------------------------------------------------------------------------------")

@@ -21,11 +21,11 @@ At first, use git to clone the project. `git clone https://github.com/ahmadmusac
 
 Now, run this docker command to build docker image. 
 ```
->> docker build -t twitter4food .
+>> docker build -t twitter .
 ``` 
 After this step is completed, run docker using this command. 
 ```
->> docker run twitter4food
+>> docker run twitter
 ```
 
 ### **Description of the output**
