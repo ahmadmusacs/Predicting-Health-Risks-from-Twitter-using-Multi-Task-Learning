@@ -20,6 +20,7 @@ import torch.nn.functional as F
 import spacy
 from collections import Counter
 import nltk
+nltk.download('stopwords')
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 stop_words = set(stopwords.words('english'))
