@@ -20,7 +20,7 @@ Host:
 
 At first, use git to clone the project. `git clone https://github.com/ahmadmusacs/Predicting-Health-Risks-from-Twitter-using-Multi-Task-Learning.git`. Then, `cd` into the project. 
 
-Now, run this docker command to build a docker image for the project. 
+Now, run this docker command to build a docker image for the project. I could not make spacy tokenizer working with docker. So I had to remove them out and the scores dorpped a lot for that reason. So, sorry for the mismatch with the paper result. 
 ```
 >> docker build -t twitter .
 ``` 

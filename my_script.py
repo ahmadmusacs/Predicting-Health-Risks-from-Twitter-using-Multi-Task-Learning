@@ -973,7 +973,7 @@ def RunIteration2(trainset, testset, modelfile):
 	torch.cuda.manual_seed(SEED)
 	torch.backends.cudnn.deterministic = True
 
-	TEXT = data.Field(tokenize='spacy')
+	TEXT = data.Field()
 	LABEL = data.LabelField(dtype=torch.float)
 	#DOMAIN = data.LabelField(dtype=torch.float)
 
@@ -1175,6 +1175,7 @@ def main(argv):
 	#RunIteration1("TrainSetDomain.jsonl", "TestSetDomain.jsonl")
 	
 	option = int(argv[0])
+	print("Option " + str(option))
 	if( option == 1):
 		print("Running fold 1")
 		RunIteration2("/TrainSetNew2.jsonl", "/TestSet.jsonl", "/TrainedModelOnBothDataBCE1.pt")
@@ -1187,14 +1188,15 @@ def main(argv):
 		
 	elif( option == 2 ):
 		print("Running fold 1")
-		RunIteration2("/TrainSetFiltered.jsonl", "/TestSetFiltered.jsonl", "/TrainedModelOnFood1W.pt")
+		#RunIteration2("/TrainSetFiltered.jsonl", "/TestSetFiltered.jsonl", "/TrainedModelOnFood1W.pt")
 		print("Running fold 2")
-		RunIteration2("/TrainSetFiltered2.jsonl", "/TestSetFiltered2.jsonl", "/TrainedModelOnFood1W.pt")
+		RunIteration2("/TrainSetFiltered2.jsonl", "/TestSetFiltered2.jsonl", "/TrainedModelOnFood2W.pt")
 		print("Running fold 3")
-		RunIteration2("/TrainSetFiltered3.jsonl", "/TestSetFiltered3.jsonl", "/TrainedModelOnFood1W.pt")
+		RunIteration2("/TrainSetFiltered3.jsonl", "/TestSetFiltered3.jsonl", "/TrainedModelOnFood3W.pt")
 		print("Running fold 4")
-		RunIteration2("/TrainSetFiltered4.jsonl", "/TestSetFiltered4.jsonl", "/TrainedModelOnFood1W.pt")
+		RunIteration2("/TrainSetFiltered4.jsonl", "/TestSetFiltered4.jsonl", "/TrainedModelOnFood4W.pt")
 
 countItr = 0
 if __name__ == '__main__':
+	print("Starting program")
 	main(sys.argv[1:])
