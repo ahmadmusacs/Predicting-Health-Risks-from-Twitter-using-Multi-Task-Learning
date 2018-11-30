@@ -993,7 +993,7 @@ def RunIteration2(trainset, testset, modelfile):
 	# print("Done")
 
 	
-	TEXT.build_vocab(train_data, max_size=25000, vectors="glove.6B.100d")
+	TEXT.build_vocab(train_data, max_size=25000)
 	LABEL.build_vocab(train_data)
 	#DOMAIN.build_vocab(train_data)
 	# print(LABEL.vocab.stoi)
